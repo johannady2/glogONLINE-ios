@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>93C8CA06-6CE0-4AD7-A91E-0DD113C778CD</string>
 	<key>IDESourceControlProjectName</key>
-	<string>G-Log Online</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>3811828AB844DDF53D0D547D5D72B560CC841C27</key>
 		<string>https://github.com/johannady2/glogONLINE-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>glogONLINE/platforms/ios/G-Log Online.xcodeproj</string>
+	<string>glogONLINE/platforms/ios/G-Log Online.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>3811828AB844DDF53D0D547D5D72B560CC841C27</key>
