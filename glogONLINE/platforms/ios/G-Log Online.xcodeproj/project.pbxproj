@@ -545,7 +545,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "G-Log Online";
-				PROVISIONING_PROFILE = "6bd698a8-3899-458c-acd6-114b5b750f09";
+				PROVISIONING_PROFILE = "a3a2aae3-aff3-439d-a20d-812c5ce10802";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -583,7 +583,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "G-Log Online";
-				PROVISIONING_PROFILE = "6bd698a8-3899-458c-acd6-114b5b750f09";
+				PROVISIONING_PROFILE = "a3a2aae3-aff3-439d-a20d-812c5ce10802";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
