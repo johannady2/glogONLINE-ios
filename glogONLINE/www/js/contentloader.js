@@ -15,7 +15,7 @@
 			 
 			 
 				 $(".slideToUnlock").on('click',function()
-				 {
+				 {      clearInterval(timerId);
 
 						$('.site-content').addClass('container');
 						$('body').css('background-image', 'none');
@@ -24,28 +24,36 @@
 						jQuery('body').unbind('touchmove');
 					 	$('.bxslider').hide();
 					 	
-					 	$('.content-cont').append('<p>You have\'nt scanned anything. <a href="#"  onclick="scanner.startScanning(MWBSInitSpace.init,MWBSInitSpace.callback)">Click here</a> to scan an item.</p>');
-
-
-
-
-
+					
+                      askExit();
 					 $('nav , footer').show();
 					 $('.splashscreencont').remove();
-		
 
-					scanner.startScanning(MWBSInitSpace.init,MWBSInitSpace.callback);
+
+                    
+                  
+                  
+            
+                    openHomePage();
+
+
+
+                    //scanner.startScanning(MWBSInitSpace.init,MWBSInitSpace.callback);
+                  
 
 				 });
          });
-  
 
-  
-    
+    $('body').on("click",'.yesExit', function()
+     {
+          navigator.app.exitApp();
+     });
+
+    $('body').on("click",'.noContinue', function()
+    {  
+        openHomePage();
+    });
+
 
      
  });
-
-
- 
-         
