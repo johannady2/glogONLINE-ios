@@ -1,4 +1,6 @@
-	var networkstatus = '';
+	var glogOrViveg;
+
+    var networkstatus = '';
     var ref = null;
 	var onlineSingleItemPictureFileName;
 	var onlineSingleItemBarcode;
@@ -164,7 +166,7 @@ function bugFix()//sometimes noti popups don't appear so we check it and make th
 		$(".content-cont").append('<img src="img/loading.gif" style="margin:15% auto; width:25%; display:block;"/>');
 
 
-				$.when($.getJSON('http://www.viveg.net/api4v2.php?format=json&barcode='+scanResult+'&user=wcu&pass=v1v3g')).done(function(forOnlineSingleData)
+				$.when($.getJSON('http://www.'+glogOrViveg+'/api4v2.php?format=json&barcode='+scanResult+'&user=wcu&pass=v1v3g')).done(function(forOnlineSingleData)
 				{
 
 						$.each(forOnlineSingleData, function( index, value ) 
@@ -177,7 +179,7 @@ function bugFix()//sometimes noti popups don't appear so we check it and make th
 										$.each( val, function( i, v )
 										{
 
-											//{"ALL":[{"posts":{"RowNumber_InvtyCat":"27","SysPk_InvtyCat":"SY - 211","SKU_InvtyCat":"SY - 211","PictureFileName_InvtyCat":"http:\/\/viveg.net\/img\/p\/5\/3\/53.jpg","Barcode_InvtyCat":"4806508161665","Brand_InvtyCat":"Sanyang Study Table","FullDescription_InvtyCat":"<p>Wooden Sanyang study table. Available colors in beige and black.<\/p>","PromoName_InvtyCat":"Sanyang Study Table","PromoPrice_InvtyCat":"2678.571429"}}]}	
+											//{"ALL":[{"posts":{"RowNumber_InvtyCat":"27","SysPk_InvtyCat":"SY - 211","SKU_InvtyCat":"SY - 211","PictureFileName_InvtyCat":"http:\/\/g-log.co\/img\/p\/5\/3\/53.jpg","Barcode_InvtyCat":"4806508161665","Brand_InvtyCat":"Sanyang Study Table","FullDescription_InvtyCat":"<p>Wooden Sanyang study table. Available colors in beige and black.<\/p>","PromoName_InvtyCat":"Sanyang Study Table","PromoPrice_InvtyCat":"2678.571429"}}]}	
 
 
 												if(i == 'PictureFileName_InvtyCat')
@@ -394,7 +396,7 @@ function bugFix()//sometimes noti popups don't appear so we check it and make th
 	$('body').on('click','.addToPrestaCart',function()
 	{
 
-		ref = window.open('http://viveg.net/index.php?barcode='+$(this).attr('data-barcode')+'&quantity='+$(this).attr('data-quantity')+'&localmobiledate='+getDateNow()+'&glog-app-access=76ef0d45220fdee3ac883a0c7565e50c', '_blank', 'location=no');
+		ref = window.open('http://'+glogOrViveg+'/index.php?barcode='+$(this).attr('data-barcode')+'&quantity='+$(this).attr('data-quantity')+'&localmobiledate='+getDateNow()+'&glog-app-access=76ef0d45220fdee3ac883a0c7565e50c', '_blank', 'location=no');
         eventListeners();
 
 
@@ -404,12 +406,16 @@ function bugFix()//sometimes noti popups don't appear so we check it and make th
     {
     
     
-        ref = window.open('http://viveg.net/index.php?controller=order', '_blank', 'location=no');
+        ref = window.open('http://'+glogOrViveg+'/index.php?controller=order', '_blank', 'location=no');
         eventListeners();
         
 
     });
 
+    $('.changeLocation').on('click', function()
+    {
+        chooseurl();
+    });
 	/*-----------------------------------------------------------------------*/
 	/*-------------------//online-single-item.html-------------------------------*/
 	/*----------------------------------------------------------------------*/
@@ -462,13 +468,22 @@ $('.content-cont').bind("DOMSubtreeModified",function()
 function askExit()
 { 
     $('.content-cont').empty();
-    $('.content-cont').append('<div class="row"><div class="col-md-12 col-sm-12 col-xs-12"><br><p>Would you like to exit this application?</p></div><div class="col-md-12 col-sm-12 col-xs-12"><button class="btn btn-sm btn-success noContinue">Continue Shopping</button></div><div class="col-md-12 col-sm-12 col-xs-12"><br><button class="btn btn-sm btn-danger yesExit">Exit</button></div></div>');
+    $('.content-cont').append('<div class="row"><div class="col-md-12 col-sm-12 col-xs-12"><br><p>Would you like to exit this application?</p></div><div class="col-md-12 col-sm-12 col-xs-12"><button class="btn btn-sm btn-success noContinue">Continue Shopping</button></div><div class="col-md-12 col-sm-12 col-xs-12"><br><button class="btn btn-sm btn-danger yesExit">Exit</button></div><div class="col-md-12 col-sm-12 col-xs-12 disabledHere"></div></div>');
+  						
+	if (navigator.userAgent.match(/(iPod|iPhone|iPad)/))
+	 {
+	    $('.yesExit').hide();
+
+	    $('.disabledHere').append('<button class="btn btn-sm btn-danger yesExitDisabledLook">Exit</button></div></div>');
+  						
+	 }
+
 }
 
 function openHomePage()
 {
     
-                    ref = window.open('http://viveg.net/index.php?glog-app-access=76ef0d45220fdee3ac883a0c7565e50c', '_blank', 'location=no,toolbar=no');
+                    ref = window.open('http://'+glogOrViveg+'/index.php?glog-app-access=76ef0d45220fdee3ac883a0c7565e50c', '_blank', 'location=no,toolbar=no');
                     eventListeners();
 
 }
@@ -509,6 +524,14 @@ function eventListeners()
                                                                        clearInterval(bTimerId);
                                                                        scanner.startScanning(MWBSInitSpace.init,MWBSInitSpace.callback);
                                                                     }
+                                                                    else if(data.func == 'location')
+                                                                    {
+                                                                    
+                                                                       ref.close();
+                                                                       $('.content-cont').empty();
+                                                                       clearInterval(bTimerId);
+                                                                       chooseurl();
+                                                                    }
                                                                   
                                                                     
                                                                     
@@ -523,3 +546,11 @@ function eventListeners()
                      ref.addEventListener('loaderror', function(event) { /*alert('error: ' + event.message);*/ });
                      ref.addEventListener('exit', function(event) { /*alert(event.type);*/});
 }
+
+function chooseurl()
+{                  
+    $('.noti-any').empty();
+    $('.noti-any').append('<button class="btn btn-large btn-success chooseurl g-log">G-Log</button><br><br><button class="btn btn-large btn-primary chooseurl viveg">Viveg</button>');
+    $('.noti-any , .noti-blanket').show();
+}
+
