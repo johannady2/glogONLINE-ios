@@ -60,10 +60,10 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-whitelist": "1.0.0",
+    "cordova-plugin-whitelist": "1.1.0",
     "com.manateeworks.barcodescanner": "1.5.3",
     "org.apache.cordova.network-information": "0.2.15",
-    "cordova-plugin-inappbrowser": "1.0.0",
+    "cordova-plugin-inappbrowser": "1.0.1",
     "org.apache.cordova.dialogs": "0.3.0",
     "org.apache.cordova.device": "0.3.0"
 }
