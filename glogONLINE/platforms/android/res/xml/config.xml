@@ -20,6 +20,9 @@
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
+    <feature name="ActivityIndicator">
+        <param name="android-package" value="org.apache.cordova.plugin.ActivityIndicator" />
+    </feature>
     <allow-intent href="market:*" />
     <name>G-Log Online</name>
     <description>
