@@ -31,10 +31,6 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"ActivityIndicator\"><param name=\"android-package\" value=\"org.apache.cordova.plugin.ActivityIndicator\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -75,9 +71,6 @@
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.glog.online"
-        },
-        "org.apache.cordova.plugin.ActivityIndicator": {
-            "PACKAGE_NAME": "com.smartmind.glogonline"
         }
     },
     "dependent_plugins": {

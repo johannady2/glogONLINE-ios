@@ -90,8 +90,12 @@
 		{
 			renderOnlineSinglePage(scanResultWhenOffline);
 		}
-
-
+        
+        if($('.splashscreencont').length <= 0)//splashscreencont is removed when start browsing is clicked. 
+        {
+            askExit();//only ask exit if the splash screen is not visible. otherwise continue shopping and exit button will show up in splashscreen.
+        }
+        
 		$('.noti-blanket, .noti-offline, .splashscreencont').hide();
 		$('.splashscreencont').show();
 		$('.splashloading').hide();
@@ -525,20 +529,48 @@ function bugFix()//sometimes noti popups don't appear so we check it and make th
 	}
 
 
-	$('body').on('click','.addToPrestaCart',function()
+	$('body').on('click','.addToPrestaCart',function(event)
 	{
+        event.preventDefault();
+        
+        
+		//ref = window.open('http://'+glogOrViveg+'/index.php?barcode='+$(this).attr('data-barcode')+'&quantity='+$(this).attr('data-quantity')+'&localmobiledate='+getDateNow()+'&glog-app-access=76ef0d45220fdee3ac883a0c7565e50c', '_blank', 'location=no');
+       // eventListeners();
+        //askExit();
+            $.ajax
+            ({
 
-		ref = window.open('http://'+glogOrViveg+'/index.php?barcode='+$(this).attr('data-barcode')+'&quantity='+$(this).attr('data-quantity')+'&localmobiledate='+getDateNow()+'&glog-app-access=76ef0d45220fdee3ac883a0c7565e50c', '_blank', 'location=no');
-        eventListeners();
-        askExit();
+                type: "POST",
+                url: 'http://'+glogOrViveg+'/index.php?barcode='+$(this).attr('data-barcode')+'&quantity='+$(this).attr('data-quantity')+'&localmobiledate='+getDateNow()+'&glog-app-access=76ef0d45220fdee3ac883a0c7565e50c',
+                data: { datatest: "data-test" },
+                success: function(data)
+                {
+                     $('.noti-any , .noti-blanket').show();
+                     $('.noti-any').empty();
+                     $('.noti-any').append('<h3 class="ItemNote">Item has been added to cart</h3><br><a href="#" class="btn btn-success btn-large ScanAgain">Scan Again</a><br><br><a href="#" class="btn btn-primary btn-large proceedToCheckOut">Proceed To Checkout</a><br><br>')
+                }
+            });	
+            return false;
 
 
 	});
 
-    $('body').on('click','.viewOnlineCart',function()
+
+
+    $('body').on('click','.ScanAgain',function()
+    {
+         $('.noti-any , .noti-blanket').hide();
+         $('.noti-any').empty();
+         scanner.startScanning(MWBSInitSpace.init,MWBSInitSpace.callback);
+    });
+
+    
+
+    $('body').on('click','.viewOnlineCart , .proceedToCheckOut',function()
     {
     
-    
+        $('.noti-any , .noti-blanket').hide();
+        $('.noti-any').empty();
         ref = window.open('http://'+glogOrViveg+'/index.php?controller=order', '_blank', 'location=no');
         eventListeners();
         
@@ -623,7 +655,7 @@ function openHomePage()
 
 function eventListeners()
 {
-
+                     scanResultWhenOffline = null;//Set to null so if you goffline and go back online, it will not reload the last scanned item.
                      ref.addEventListener('loadstart', 
                      function(event)
                      { 
